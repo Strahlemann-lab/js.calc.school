@@ -101,4 +101,50 @@ function initKugel(){
     return kugel;
 }
 
-
+function initZylinder(){
+    var zylinder = {
+        r: document.getElementById('input_r'),
+        d: document.getElementById('input_d'),
+        h: document.getElementById('input_h'),
+        precision: document.getElementById('inputPrecision'),
+        units: document.getElementById('inputUnits'),
+    
+        v: function () {
+            return Math.PI * this.r.value ** 2 *this.h.value
+        },
+        a0: function () {
+            return 2 * Math.PI * this.r.value * (this.r.value + this.h.value)
+        },
+        aM: function () {
+            return 2 * Math.PI * this.r.value * this.h.value
+        },
+        aG: function () {
+            return Math.PI * this.r.value ** 2
+        },
+        calcPrec: function () {
+            if(this.precision.value < 0 || this.precision.value > 5){
+                if(this.precision.value < 0){
+                    this.precision.value = 0;
+                }else{
+                    this.precision.value = 5;
+                }
+            }
+            return this.precision.value;
+        },
+        calcR: function () {
+            this.d.value = this.r.value * 2;
+            this.result();
+        },
+        calcD: function () {
+            this.r.value = this.d.value / 2;
+            this.result();
+        },
+        result: function () {
+            document.getElementById('output_v').innerHTML = this.v().toFixed(this.calcPrec()) + " " + this.units;
+            document.getElementById('output_a0').innerHTML = this.a0().toFixed(this.calcPrec()) + " " + this.units;
+            document.getElementById('output_aM').innerHTML = this.aM().toFixed(this.calcPrec()) + " " + this.units;
+            document.getElementById('output_aG').innerHTML = this.aG().toFixed(this.calcPrec()) + " " + this.units;
+        },
+    };
+    return zylinder;
+}
