@@ -20,6 +20,8 @@ switch(document.body.getAttribute("data-site")){
     case "pyramide":
         var pyramide = initPyramide();
         break;
+    default:
+        break;
 }
 
 function initQuader(){
