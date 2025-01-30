@@ -61,7 +61,7 @@ function initQuader(){
     };
     return quader;
 }
-/*
+
 function initKugel(){
     var kugel = {
         r: document.getElementById('input_r'),
@@ -70,10 +70,10 @@ function initKugel(){
         units: document.getElementById('inputUnits'),
     
         v: function () {
-            return (4 / 3) * Math.PI * this.r.value ** 2
+            return (4 / 3) * Math.PI * this.r.value ** 3
         },
         a0: function () {
-            return 
+            return 4 * Math.PI * this.r.value ** 2
         },
         calcPrec: function () {
             if(this.precision.value < 0 || this.precision.value > 5){
@@ -100,5 +100,5 @@ function initKugel(){
     };
     return kugel;
 }
-*/
+
 
