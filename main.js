@@ -187,3 +187,45 @@ function initPrisma(){
     };
     return prisma;
 }
+
+function initPyramide(){
+    var pyramide = {
+        a: document.getElementById('input_a'),
+        h: document.getElementById('input_h'),
+        precision: document.getElementById('inputPrecision'),
+        units: document.getElementById('inputUnits'),
+    
+        hs: function () {
+            return Math.sqrt((this.a.value / 2) ** 2 + this.h.value)
+        },
+        v: function () {
+            return (1 / 3) * this.a.value ** 2 * this.h.value
+        },
+        a0: function () {
+            return this.a.value * (this.a.value + 2 * this.hs())
+        },
+        aM: function () {
+            return 2 * this.a.value * this.hs()
+        },
+        aG: function () {
+            return this.a.value ** 2
+        },
+        calcPrec: function () {
+            if(this.precision.value < 0 || this.precision.value > 5){
+                if(this.precision.value < 0){
+                    this.precision.value = 0;
+                }else{
+                    this.precision.value = 5;
+                }
+            }
+            return this.precision.value;
+        },
+        result: function () {
+            document.getElementById('output_v').innerHTML = this.v().toFixed(this.calcPrec()) + " " + this.units;
+            document.getElementById('output_a0').innerHTML = this.a0().toFixed(this.calcPrec()) + " " + this.units;
+            document.getElementById('output_aM').innerHTML = this.aM().toFixed(this.calcPrec()) + " " + this.units;
+            document.getElementById('output_aG').innerHTML = this.aG().toFixed(this.calcPrec()) + " " + this.units;
+        },
+    };
+    return pyramide;
+}
