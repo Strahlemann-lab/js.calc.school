@@ -28,6 +28,7 @@ function initQuader(){
         b: document.getElementById('input_b'),
         c: document.getElementById('input_c'),
         precision: document.getElementById('inputPrecision'),
+        units: document.getElementById('inputUnits'),
     
         v: function () {
             return this.a.value * this.b.value * this.c.value
@@ -42,18 +43,62 @@ function initQuader(){
             return a.value * b.value
         },
         calcPrec: function () {
-            // hier war ich zuletzt
+            if(this.precision.value < 0 || this.precision.value > 5){
+                if(this.precision.value < 0){
+                    this.precision.value = 0;
+                }else{
+                    this.precision.value = 5;
+                }
+            }
+            return this.precision.value;
         },
         result: function () {
-            document.getElementById('output_v').innerHTML = this.v().toFixed(this.precision.value);
-            document.getElementById('output_a0').innerHTML = this.a0().toFixed(this.precision.value);
-            document.getElementById('output_aM').innerHTML = this.aM().toFixed(this.precision.value);
-            document.getElementById('output_aG').innerHTML = this.aG().toFixed(this.precision.value);
+            document.getElementById('output_v').innerHTML = this.v().toFixed(this.calcPrec()) + " " + this.units;
+            document.getElementById('output_a0').innerHTML = this.a0().toFixed(this.calcPrec()) + " " + this.units;
+            document.getElementById('output_aM').innerHTML = this.aM().toFixed(this.calcPrec()) + " " + this.units;
+            document.getElementById('output_aG').innerHTML = this.aG().toFixed(this.calcPrec()) + " " + this.units;
         },
     };
     return quader;
 }
-
-
-
+/*
+function initKugel(){
+    var kugel = {
+        r: document.getElementById('input_r'),
+        d: document.getElementById('input_d'),
+        precision: document.getElementById('inputPrecision'),
+        units: document.getElementById('inputUnits'),
+    
+        v: function () {
+            return (4 / 3) * Math.PI * this.r.value ** 2
+        },
+        a0: function () {
+            return 
+        },
+        calcPrec: function () {
+            if(this.precision.value < 0 || this.precision.value > 5){
+                if(this.precision.value < 0){
+                    this.precision.value = 0;
+                }else{
+                    this.precision.value = 5;
+                }
+            }
+            return this.precision.value;
+        },
+        calcR: function () {
+            this.d.value = this.r.value * 2;
+            this.result();
+        },
+        calcD: function () {
+            this.r.value = this.d.value / 2;
+            this.result();
+        },
+        result: function () {
+            document.getElementById('output_v').innerHTML = this.v().toFixed(this.calcPrec()) + " " + this.units;
+            document.getElementById('output_a0').innerHTML = this.a0().toFixed(this.calcPrec()) + " " + this.units;
+        },
+    };
+    return kugel;
+}
+*/
 
