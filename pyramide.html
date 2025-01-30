@@ -6,21 +6,72 @@
     <title>Pyramide</title>
     <script src="main.js" defer></script>
     <link rel="stylesheet" href="style.css">
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
-<body id="body" data-site="home">
+<body id="body" data-site="pyramide">
     <main>
         <div class="site">
-            
+            <div class="formel-box">
+                <div>
+                    <p>Volumen</p>
+                    <p>$$\frac{1}{3}a^{2}h$$</p>
+                </div>
+                <div>
+                    <p>Gesamtoberfläche</p>
+                    <p>$$a\left(a+2h_{s}\right)$$</p>
+                </div>
+                <div>
+                    <p>Mantelfläche</p>
+                    <p>$$2\times a \times h_{s} $$</p>
+                </div>
+                <div>
+                    <p>Grundfläche</p>
+                    <p>$$a^{2}$$</p>
+                </div>
+            </div>
+            <div class="skizze-box">2</div>
+            <div class="input-box">
+                <div>
+                    <label for="input_a">a</label>
+                    <input type="number" id="input_a" oninput="pyramide.result()" placeholder="0">
+                </div>
+                <div>
+                    <label for="input_h">h</label>
+                    <input type="number" id="input_h" oninput="pyramide.result()" placeholder="0">
+                </div>
+                <div>
+                    <label for="inputPrecision">Kommastellen</label>
+                    <input type="number" id="inputPrecision" oninput="pyramide.result()" value="1">
+                </div>
+            </div>
+            <div class="output-box">
+                <div>
+                    <label for="output_v">Volumen</label>
+                    <p id="output_v">0</p>
+                </div>
+                <div>
+                    <label for="output_a0">Gesamtoberfläche</label>
+                    <p id="output_a0">0</p>
+                </div>
+                <div>
+                    <label for="output_aM">Mantelfläche</label>
+                    <p id="output_aM">0</p>
+                </div>
+                <div>
+                    <label for="output_aG">Grundfläche</label>
+                    <p id="output_aG">0</p>
+                </div>
+            </div>
         </div>
     </main>
     <footer>
         <div class="site-footer">
             <section class="site-settings">
                 <a href="quader.html">Quader</a>
-                <a href="kugel.htlm">Kugel</a>
+                <a href="kugel.html">Kugel</a>
                 <a href="zylinder.html">Zylinder</a>
                 <a href="prisma.html">Prisma</a>
-                <a href="pyramide">Pyramide</a>
+                <a href="pyramide.html">Pyramide</a>
             </section>
             <section>
                 <p>Built by Strahlemann-lab.</p>

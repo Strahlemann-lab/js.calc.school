@@ -30,7 +30,6 @@ function initQuader(){
         b: document.getElementById('input_b'),
         c: document.getElementById('input_c'),
         precision: document.getElementById('inputPrecision'),
-        units: document.getElementById('inputUnits'),
     
         v: function () {
             return this.a.value * this.b.value * this.c.value
@@ -42,9 +41,10 @@ function initQuader(){
             return 2 * (this.a.value * this.c.value + this.b.value * this.c.value)
         },
         aG: function () {
-            return a.value * b.value
+            return this.a.value * this.b.value
         },
         calcPrec: function () {
+            if(!this.precision.value){return}
             if(this.precision.value < 0 || this.precision.value > 5){
                 if(this.precision.value < 0){
                     this.precision.value = 0;
@@ -55,10 +55,10 @@ function initQuader(){
             return this.precision.value;
         },
         result: function () {
-            document.getElementById('output_v').innerHTML = this.v().toFixed(this.calcPrec()) + " " + this.units;
-            document.getElementById('output_a0').innerHTML = this.a0().toFixed(this.calcPrec()) + " " + this.units;
-            document.getElementById('output_aM').innerHTML = this.aM().toFixed(this.calcPrec()) + " " + this.units;
-            document.getElementById('output_aG').innerHTML = this.aG().toFixed(this.calcPrec()) + " " + this.units;
+            document.getElementById('output_v').innerHTML = this.v().toFixed(this.calcPrec());
+            document.getElementById('output_a0').innerHTML = this.a0().toFixed(this.calcPrec());
+            document.getElementById('output_aM').innerHTML = this.aM().toFixed(this.calcPrec());
+            document.getElementById('output_aG').innerHTML = this.aG().toFixed(this.calcPrec());
         },
     };
     return quader;
@@ -69,7 +69,6 @@ function initKugel(){
         r: document.getElementById('input_r'),
         d: document.getElementById('input_d'),
         precision: document.getElementById('inputPrecision'),
-        units: document.getElementById('inputUnits'),
     
         v: function () {
             return (4 / 3) * Math.PI * this.r.value ** 3
@@ -96,8 +95,8 @@ function initKugel(){
             this.result();
         },
         result: function () {
-            document.getElementById('output_v').innerHTML = this.v().toFixed(this.calcPrec()) + " " + this.units;
-            document.getElementById('output_a0').innerHTML = this.a0().toFixed(this.calcPrec()) + " " + this.units;
+            document.getElementById('output_v').innerHTML = this.v().toFixed(this.calcPrec());
+            document.getElementById('output_a0').innerHTML = this.a0().toFixed(this.calcPrec());
         },
     };
     return kugel;
@@ -109,7 +108,6 @@ function initZylinder(){
         d: document.getElementById('input_d'),
         h: document.getElementById('input_h'),
         precision: document.getElementById('inputPrecision'),
-        units: document.getElementById('inputUnits'),
     
         v: function () {
             return Math.PI * this.r.value ** 2 *this.h.value
@@ -142,10 +140,10 @@ function initZylinder(){
             this.result();
         },
         result: function () {
-            document.getElementById('output_v').innerHTML = this.v().toFixed(this.calcPrec()) + " " + this.units;
-            document.getElementById('output_a0').innerHTML = this.a0().toFixed(this.calcPrec()) + " " + this.units;
-            document.getElementById('output_aM').innerHTML = this.aM().toFixed(this.calcPrec()) + " " + this.units;
-            document.getElementById('output_aG').innerHTML = this.aG().toFixed(this.calcPrec()) + " " + this.units;
+            document.getElementById('output_v').innerHTML = this.v().toFixed(this.calcPrec());
+            document.getElementById('output_a0').innerHTML = this.a0().toFixed(this.calcPrec());
+            document.getElementById('output_aM').innerHTML = this.aM().toFixed(this.calcPrec());
+            document.getElementById('output_aG').innerHTML = this.aG().toFixed(this.calcPrec());
         },
     };
     return zylinder;
@@ -156,7 +154,6 @@ function initPrisma(){
         a: document.getElementById('input_a'),
         h: document.getElementById('input_h'),
         precision: document.getElementById('inputPrecision'),
-        units: document.getElementById('inputUnits'),
     
         v: function () {
             return (this.a.value ** 2 / 4) * this.h.value * Math.sqrt(3)
@@ -181,10 +178,10 @@ function initPrisma(){
             return this.precision.value;
         },
         result: function () {
-            document.getElementById('output_v').innerHTML = this.v().toFixed(this.calcPrec()) + " " + this.units;
-            document.getElementById('output_a0').innerHTML = this.a0().toFixed(this.calcPrec()) + " " + this.units;
-            document.getElementById('output_aM').innerHTML = this.aM().toFixed(this.calcPrec()) + " " + this.units;
-            document.getElementById('output_aG').innerHTML = this.aG().toFixed(this.calcPrec()) + " " + this.units;
+            document.getElementById('output_v').innerHTML = this.v().toFixed(this.calcPrec());
+            document.getElementById('output_a0').innerHTML = this.a0().toFixed(this.calcPrec());
+            document.getElementById('output_aM').innerHTML = this.aM().toFixed(this.calcPrec());
+            document.getElementById('output_aG').innerHTML = this.aG().toFixed(this.calcPrec());
         },
     };
     return prisma;
@@ -195,10 +192,9 @@ function initPyramide(){
         a: document.getElementById('input_a'),
         h: document.getElementById('input_h'),
         precision: document.getElementById('inputPrecision'),
-        units: document.getElementById('inputUnits'),
     
         hs: function () {
-            return Math.sqrt((this.a.value / 2) ** 2 + this.h.value)
+            return Math.sqrt((this.a.value / 2) ** 2 + this.h.value ** 2)
         },
         v: function () {
             return (1 / 3) * this.a.value ** 2 * this.h.value
@@ -223,10 +219,10 @@ function initPyramide(){
             return this.precision.value;
         },
         result: function () {
-            document.getElementById('output_v').innerHTML = this.v().toFixed(this.calcPrec()) + " " + this.units;
-            document.getElementById('output_a0').innerHTML = this.a0().toFixed(this.calcPrec()) + " " + this.units;
-            document.getElementById('output_aM').innerHTML = this.aM().toFixed(this.calcPrec()) + " " + this.units;
-            document.getElementById('output_aG').innerHTML = this.aG().toFixed(this.calcPrec()) + " " + this.units;
+            document.getElementById('output_v').innerHTML = this.v().toFixed(this.calcPrec());
+            document.getElementById('output_a0').innerHTML = this.a0().toFixed(this.calcPrec());
+            document.getElementById('output_aM').innerHTML = this.aM().toFixed(this.calcPrec());
+            document.getElementById('output_aG').innerHTML = this.aG().toFixed(this.calcPrec());
         },
     };
     return pyramide;

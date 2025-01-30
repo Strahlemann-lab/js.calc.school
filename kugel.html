@@ -6,21 +6,56 @@
     <title>Kugel</title>
     <script src="main.js" defer></script>
     <link rel="stylesheet" href="style.css">
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
-<body id="body" data-site="home">
+<body id="body" data-site="kugel">
     <main>
         <div class="site">
-            
+            <div class="formel-box">
+                <div>
+                    <p>Volumen</p>
+                    <p>$$\frac{4}{3}\pi \times r^{3}$$</p>
+                </div>
+                <div>
+                    <p>Gesamtoberfläche</p>
+                    <p>$$4\pi\times r^{2}$$</p>
+                </div>
+            </div>
+            <div class="skizze-box">2</div>
+            <div class="input-box">
+                <div>
+                    <label for="input_r">r</label>
+                    <input type="number" id="input_r" oninput="kugel.calcR()" placeholder="0">
+                </div>
+                <div>
+                    <label for="input_d">d</label>
+                    <input type="number" id="input_d" oninput="kugel.calcD()" placeholder="0">
+                </div>
+                <div>
+                    <label for="inputPrecision">Kommastellen</label>
+                    <input type="number" id="inputPrecision" oninput="kugel.result()" value="1">
+                </div>
+            </div>
+            <div class="output-box">
+                <div>
+                    <label for="output_v">Volumen</label>
+                    <p id="output_v">0</p>
+                </div>
+                <div>
+                    <label for="output_a0">Gesamtoberfläche</label>
+                    <p id="output_a0">0</p>
+                </div>
+            </div>
         </div>
     </main>
     <footer>
         <div class="site-footer">
             <section class="site-settings">
                 <a href="quader.html">Quader</a>
-                <a href="kugel.htlm">Kugel</a>
+                <a href="kugel.html">Kugel</a>
                 <a href="zylinder.html">Zylinder</a>
                 <a href="prisma.html">Prisma</a>
-                <a href="pyramide">Pyramide</a>
+                <a href="pyramide.html">Pyramide</a>
             </section>
             <section>
                 <p>Built by Strahlemann-lab.</p>

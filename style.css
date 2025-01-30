@@ -42,7 +42,67 @@ main{
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
 }
+.input-box{
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    justify-content: center;
+    gap: 0.5em;
 
+    div{
+        margin-right: 30%;
+        position: relative;
+
+        input{
+            padding: 5px;
+            background-color: transparent;
+            outline: none;
+            border: 2px solid var(--color);
+            border-radius: 5px;
+            color: var(--color);
+            width: 100px;
+        }
+        input:focus{
+            border-color: var(--color-link);
+        }
+    }
+}
+.output-box{
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    justify-content: center;
+    gap: 0.5em;
+
+    div{
+        display: inline-flex;
+        gap: 1em;
+        margin-right: 40%;
+        
+        p{
+            font-weight: 700;
+        }
+    }
+}
+.formel-box{
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    justify-content: center;
+    gap: 0.5em;
+
+    div{
+        display: inline-flex;
+        align-items: center;
+        gap: 1em;
+        margin-right: 20%;
+        
+        p{
+            font-weight: 700;
+            width: 150px;
+        }
+    }
+}
 
 
 footer{
