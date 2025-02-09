@@ -103,6 +103,16 @@ main{
         }
     }
 }
+.skizze-box{
+    position: relative;
+    margin-right: 1em;
+    margin-top: 1em;
+    overflow: hidden;
+
+    *{
+        position: absolute;
+    }
+}
 
 
 footer{

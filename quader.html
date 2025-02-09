@@ -7,6 +7,11 @@
     <script src="main.js" defer></script>
     <link rel="stylesheet" href="style.css">
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/renderers/CSS2DRenderer.js"></script>
+    <script defer src="renderer.js"></script>
 </head>
 <body id="body" data-site="quader">
     <main>
@@ -26,10 +31,11 @@
                 </div>
                 <div>
                     <p>Grundfläche</p>
-                    <p>$$ab$$</p>
+                    <p>$$a\times b$$</p>
                 </div>
             </div>
-            <div class="skizze-box">2</div>
+            <div class="skizze-box" id="renderElement">
+            </div>
             <div class="input-box">
                 <div>
                     <label for="input_a">a</label>
