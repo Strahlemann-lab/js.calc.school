@@ -3,6 +3,7 @@
 switch(document.body.getAttribute("data-site")){
     case "quader":
         var quader = initQuader();
+        quader.result();
         break;
 
     case "kugel":

@@ -45,16 +45,17 @@ function updateCameraZoom(targetObject, zoom) {
 
 // set up controls for orbitControls. which enables moving
 controls.enableDamping = true;
-controls.dampingFactor = 0.05;
+controls.dampingFactor = 0.1;
 controls.minDistance = 1;
 controls.maxDistance = 500;
 
 // add scene a geometry object
 switch(document.body.getAttribute("data-site")){
     case "quader":
-        const geometry = new THREE.BoxGeometry( 50, 30, 40 );
+        const geometry = new THREE.BoxGeometry( quader.a.value, quader.b.value, quader.c.value );
         var geometryObject = new THREE.Mesh( geometry, material );
-
+        const edgeLines = new THREE.EdgesGeometry(geometryObject.geometry);
+        var edgeLinesObject = new THREE.LineSegments(edgeLines, lineMaterial);
         break;
 
     case "kugel":
@@ -71,6 +72,22 @@ switch(document.body.getAttribute("data-site")){
     default:
         break;
 }
-const edgeLines = new THREE.EdgesGeometry(geometryObject.geometry);
-const edgeLinesObject = new THREE.LineSegments(edgeLines, lineMaterial);
+
 scene.add( geometryObject, edgeLinesObject );
+
+// update geometryObject and edgeLinesObject
+function upQuader() {
+    scene.remove(geometryObject, edgeLinesObject);
+    geometryObject.geometry.dispose();
+    const geometry = new THREE.BoxGeometry( quader.a.value, quader.c.value, quader.b.value );
+    geometryObject = new THREE.Mesh( geometry, material );
+    edgeLinesObject.geometry.dispose();
+    const edgeLines = new THREE.EdgesGeometry(geometryObject.geometry);
+    edgeLinesObject= new THREE.LineSegments(edgeLines, lineMaterial);
+    console.log("moin");
+    scene.add(geometryObject, edgeLinesObject);
+}
+upQuader();
+setInterval(upQuader, 1000)
+
+
