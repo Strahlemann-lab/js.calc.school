@@ -2,6 +2,7 @@
 // create renderElement, renderObject, renderer, scene, camera, controls and material
 const renderElement = document.getElementById("renderElement");  // html elements
 const renderer = new THREE.WebGLRenderer();
+const cssRenderer = new THREE.CSS2DRenderer();
 const scene = new THREE.Scene();
 const camera = new THREE.OrthographicCamera( renderElement.offsetWidth / -2, renderElement.offsetWidth / 2, renderElement.offsetHeight / 2, renderElement.offsetHeight / -2, 1, 1000 );
 const controls = new THREE.OrbitControls(camera, renderer.domElement);
@@ -10,8 +11,14 @@ const lineMaterial = new THREE.LineBasicMaterial({ color: 0xd8d8d8, linewidth: 5
 
 // set up renderer
 renderer.setSize( renderElement.offsetWidth, renderElement.offsetHeight ); // set size of renderer to size of renderElement
+renderer.setPixelRatio( window.devicePixelRatio );
 renderer.setClearColor(0x2e3236); // set background color
+cssRenderer.setSize( renderElement.offsetWidth, renderElement.offsetHeight );
+cssRenderer.domElement.style.position = 'absolute';
+cssRenderer.domElement.style.top = '0px';
+cssRenderer.domElement.style.pointerEvents = 'none';
 renderElement.appendChild(renderer.domElement); // insert renderer in renderElement
+renderElement.appendChild(cssRenderer.domElement);
 window.addEventListener('resize', () => {
     renderer.setSize(renderElement.offsetWidth, renderElement.offsetHeight); // eventListener for resize of renderElement
 });
@@ -20,6 +27,7 @@ function animate() {
     updateCameraZoom(geometryObject, 250);
     controls.update();
     renderer.render( scene, camera );
+    cssRenderer.render(scene, camera);
 }
 renderer.setAnimationLoop(animate); // set render loop for renderer 
 
@@ -52,10 +60,20 @@ controls.maxDistance = 500;
 // add scene a geometry object
 switch(document.body.getAttribute("data-site")){
     case "quader":
-        const geometry = new THREE.BoxGeometry( quader.a.value, quader.b.value, quader.c.value );
+        const geometry = new THREE.BoxGeometry( quader.a.value, quader.c.value, quader.b.value );
         var geometryObject = new THREE.Mesh( geometry, material );
         const edgeLines = new THREE.EdgesGeometry(geometryObject.geometry);
         var edgeLinesObject = new THREE.LineSegments(edgeLines, lineMaterial);
+        const infoQuaderA = document.getElementById('infoQuaderA');
+        const infoQuaderB = document.getElementById('infoQuaderB');
+        const infoQuaderC = document.getElementById('infoQuaderC');
+        var infoA_Object = new THREE.CSS2DObject(infoQuaderA);
+        var infoB_Object = new THREE.CSS2DObject(infoQuaderB);
+        var infoC_Object = new THREE.CSS2DObject(infoQuaderC);
+        infoA_Object.position.set(0, -5, -11);
+        infoB_Object.position.set(16, -5, 0);
+        infoC_Object.position.set(16, 0, 11);
+        geometryObject.add(infoA_Object, infoB_Object, infoC_Object);
         break;
 
     case "kugel":
@@ -84,10 +102,11 @@ function upQuader() {
     edgeLinesObject.geometry.dispose();
     const edgeLines = new THREE.EdgesGeometry(geometryObject.geometry);
     edgeLinesObject= new THREE.LineSegments(edgeLines, lineMaterial);
-    console.log("moin");
+    infoA_Object.position.set(0, quader.c.value /2 * -1, quader.b.value / 2 * -1 - 1);
+    infoB_Object.position.set(quader.a.value / 2 + 1, quader.c.value /2 * -1, 0);
+    infoC_Object.position.set(quader.a.value / 2 + 1, 0, quader.b.value / 2 + 1);
+    geometryObject.add(infoA_Object, infoB_Object, infoC_Object);
     scene.add(geometryObject, edgeLinesObject);
 }
-upQuader();
-setInterval(upQuader, 1000)
 
 

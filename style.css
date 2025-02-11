@@ -109,8 +109,12 @@ main{
     margin-top: 1em;
     overflow: hidden;
 
-    *{
+   /* *{
         position: absolute;
+    }*/
+    text{
+        color: var(--color);
+        font-weight: 600;
     }
 }
 
