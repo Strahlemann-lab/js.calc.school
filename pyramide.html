@@ -7,6 +7,10 @@
     <script src="main.js" defer></script>
     <link rel="stylesheet" href="style.css">
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/renderers/CSS2DRenderer.js"></script>
+    <script defer src="renderer.js"></script>
 </head>
 <body id="body" data-site="pyramide">
     <main>
@@ -14,34 +18,39 @@
             <div class="formel-box">
                 <div>
                     <p>Volumen</p>
-                    <p>$$\frac{1}{3}a^{2}h$$</p>
+                    <p>$$\frac{1}{3}\cdot a^{2}\cdot h$$</p>
                 </div>
                 <div>
                     <p>Gesamtoberfläche</p>
-                    <p>$$a\left(a+2h_{s}\right)$$</p>
+                    <p>$$a\cdot\left(a+2\cdot h_{s}\right)$$</p>
                 </div>
                 <div>
                     <p>Mantelfläche</p>
-                    <p>$$2\times a \times h_{s} $$</p>
+                    <p>$$2\cdot a \cdot h_{s} $$</p>
                 </div>
                 <div>
                     <p>Grundfläche</p>
                     <p>$$a^{2}$$</p>
                 </div>
             </div>
-            <div class="skizze-box">2</div>
+            <div class="skizze-box" id="renderElement">
+                <span class="text" id="infoPyramideA1">$$a$$</span>
+                <span class="text" id="infoPyramideA2">$$a$$</span>
+                <span class="text" id="infoPyramideHs">$$h_{s}$$</span>
+                <span class="text" id="infoPyramideH">$$h$$</span>
+            </div>
             <div class="input-box">
                 <div>
                     <label for="input_a">a</label>
-                    <input type="number" id="input_a" oninput="pyramide.result()" placeholder="0">
+                    <input type="number" id="input_a" oninput="pyramide.result(); upPyramide();" placeholder="0" value="10">
                 </div>
                 <div>
                     <label for="input_h">h</label>
-                    <input type="number" id="input_h" oninput="pyramide.result()" placeholder="0">
+                    <input type="number" id="input_h" oninput="pyramide.result(); upPyramide();" placeholder="0" value="10">
                 </div>
                 <div>
                     <label for="inputPrecision">Kommastellen</label>
-                    <input type="number" id="inputPrecision" oninput="pyramide.result()" value="1">
+                    <input type="number" id="inputPrecision" oninput="pyramide.result(); upPyramide();" value="1">
                 </div>
             </div>
             <div class="output-box">

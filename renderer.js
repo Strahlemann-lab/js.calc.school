@@ -173,6 +173,28 @@ switch(document.body.getAttribute("data-site")){
         break;
 
     case "pyramide":
+        geometry = new THREE.CylinderGeometry(0, pyramide.a.value, pyramide.h.value, 4, 1);
+        geometryObject = new THREE.Mesh( geometry, material );
+        edgeLines = new THREE.EdgesGeometry(geometryObject.geometry);
+        edgeLinesObject = new THREE.LineSegments(edgeLines, lineMaterial);
+        const lineH = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0, pyramide.h.value / 2, 0), new THREE.Vector3(0, pyramide.h.value / 2 * -1, 0)]);
+        var lineH_Object = new THREE.Line(lineH, lineMaterial);
+        const lineHs = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0, pyramide.h.value / 2, 0), new THREE.Vector3(pyramide.a.value / 2, pyramide.h.value / 2 * -1, pyramide.a.value / 2)]);
+        var lineHs_Object = new THREE.Line(lineHs, lineMaterial);
+        const infoPyramideA1 = document.getElementById('infoPyramideA1');
+        const infoPyramideA2 = document.getElementById('infoPyramideA2');
+        const infoPyramideHs = document.getElementById('infoPyramideHs');
+        const infoPyramideH = document.getElementById('infoPyramideH');
+        var infoA1_Object = new THREE.CSS2DObject(infoPyramideA1);
+        var infoA2_Object = new THREE.CSS2DObject(infoPyramideA2);
+        var infoHs_Object = new THREE.CSS2DObject(infoPyramideHs);
+        var infoH_Object = new THREE.CSS2DObject(infoPyramideH);
+        infoA1_Object.position.set(pyramide.a.value / 2, pyramide.h.value / 2 * -1, pyramide.a.value / 2 * -1);
+        infoA2_Object.position.set(pyramide.a.value / 2 * -1, pyramide.h.value / 2 * -1, pyramide.a.value / 2 * -1);
+        infoHs_Object.position.set(pyramide.a.value / 4, 0, pyramide.a.value / 4);
+        infoH_Object.position.set(0, 0, 0);
+        geometryObject.add(infoA1_Object, infoA2_Object, infoHs_Object, infoH_Object, lineHs_Object, lineH_Object);
+        scene.add(geometryObject, edgeLinesObject);
         break;
     default:
         break;
@@ -270,4 +292,30 @@ function upPrisma() {
     geometryObject.add(infoA1_Object, infoA2_Object, infoA3_Object, infoH_Object);
     scene.add(geometryObject, edgeLinesObject);
 }
-
+function upPyramide() {
+    scene.remove(geometryObject, edgeLinesObject);
+    geometryObject.geometry.dispose();
+    edgeLinesObject.geometry.dispose();
+    geometry = new THREE.CylinderGeometry(0, pyramide.a.value, pyramide.h.value, 4, 1);
+    geometryObject = new THREE.Mesh( geometry, material );
+    edgeLines = new THREE.EdgesGeometry(geometryObject.geometry);
+    edgeLinesObject = new THREE.LineSegments(edgeLines, lineMaterial);
+    const lineH = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0, pyramide.h.value / 2, 0), new THREE.Vector3(0, pyramide.h.value / 2 * -1, 0)]);
+    var lineH_Object = new THREE.Line(lineH, lineMaterial);
+    const lineHs = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0, pyramide.h.value / 2, 0), new THREE.Vector3(pyramide.a.value / 2, pyramide.h.value / 2 * -1, pyramide.a.value / 2)]);
+    var lineHs_Object = new THREE.Line(lineHs, lineMaterial);
+    const infoPyramideA1 = document.getElementById('infoPyramideA1');
+    const infoPyramideA2 = document.getElementById('infoPyramideA2');
+    const infoPyramideHs = document.getElementById('infoPyramideHs');
+    const infoPyramideH = document.getElementById('infoPyramideH');
+    var infoA1_Object = new THREE.CSS2DObject(infoPyramideA1);
+    var infoA2_Object = new THREE.CSS2DObject(infoPyramideA2);
+    var infoHs_Object = new THREE.CSS2DObject(infoPyramideHs);
+    var infoH_Object = new THREE.CSS2DObject(infoPyramideH);
+    infoA1_Object.position.set(pyramide.a.value / 2, pyramide.h.value / 2 * -1, pyramide.a.value / 2 * -1);
+    infoA2_Object.position.set(pyramide.a.value / 2 * -1, pyramide.h.value / 2 * -1, pyramide.a.value / 2 * -1);
+    infoHs_Object.position.set(pyramide.a.value / 4, 0, pyramide.a.value / 4);
+    infoH_Object.position.set(0, 0, 0);
+    geometryObject.add(infoA1_Object, infoA2_Object, infoHs_Object, infoH_Object, lineHs_Object, lineH_Object);
+    scene.add(geometryObject, edgeLinesObject);
+}
