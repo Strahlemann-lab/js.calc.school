@@ -8,6 +8,7 @@ switch(document.body.getAttribute("data-site")){
 
     case "kugel":
         var kugel = initKugel();
+        kugel.result();
         break;
 
     case "zylinder":

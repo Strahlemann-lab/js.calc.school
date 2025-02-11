@@ -7,6 +7,10 @@
     <script src="main.js" defer></script>
     <link rel="stylesheet" href="style.css">
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/renderers/CSS2DRenderer.js"></script>
+    <script defer src="renderer.js"></script>
 </head>
 <body id="body" data-site="kugel">
     <main>
@@ -21,19 +25,23 @@
                     <p>$$4\pi\times r^{2}$$</p>
                 </div>
             </div>
-            <div class="skizze-box">2</div>
+            <div class="skizze-box" id="renderElement">
+                <span class="text" id="infoQuaderD">$$d$$</span>
+                <span class="text" id="infoQuaderR">$$r$$</span>
+                <span class="text" id="infoQuaderX">x</span>
+            </div>
             <div class="input-box">
                 <div>
                     <label for="input_r">r</label>
-                    <input type="number" id="input_r" oninput="kugel.calcR()" placeholder="0">
+                    <input type="number" id="input_r" oninput="kugel.calcR(); upKugel();" placeholder="0" value="5">
                 </div>
                 <div>
                     <label for="input_d">d</label>
-                    <input type="number" id="input_d" oninput="kugel.calcD()" placeholder="0">
+                    <input type="number" id="input_d" oninput="kugel.calcD(); upKugel();" placeholder="0" value="10">
                 </div>
                 <div>
                     <label for="inputPrecision">Kommastellen</label>
-                    <input type="number" id="inputPrecision" oninput="kugel.result()" value="1">
+                    <input type="number" id="inputPrecision" oninput="kugel.result();" value="1">
                 </div>
             </div>
             <div class="output-box">

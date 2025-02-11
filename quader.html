@@ -7,7 +7,6 @@
     <script src="main.js" defer></script>
     <link rel="stylesheet" href="style.css">
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/renderers/CSS2DRenderer.js"></script>
@@ -19,25 +18,25 @@
             <div class="formel-box">
                 <div>
                     <p>Volumen</p>
-                    <p>$$a\times b\times c$$</p>
+                    <p>$$a\cdot b\cdot c$$</p>
                 </div>
                 <div>
                     <p>Gesamtoberfläche</p>
-                    <p>$$2\left(ab+ac+bc\right)$$</p>
+                    <p>$$2\cdot\left(a\cdot b+a\cdot c+b\cdot c\right)$$</p>
                 </div>
                 <div>
                     <p>Mantelfläche</p>
-                    <p>$$2\left(ac+bc\right)$$</p>
+                    <p>$$2\cdot\left(a\cdot c+b\cdot c\right)$$</p>
                 </div>
                 <div>
                     <p>Grundfläche</p>
-                    <p>$$a\times b$$</p>
+                    <p>$$a\cdot b$$</p>
                 </div>
             </div>
             <div class="skizze-box" id="renderElement">
-                <span class="text" id="infoQuaderA">a</span>
-                <span class="text" id="infoQuaderB">b</span>
-                <span class="text" id="infoQuaderC">c</span>
+                <span class="text" id="infoQuaderA">$$a$$</span>
+                <span class="text" id="infoQuaderB">$$b$$</span>
+                <span class="text" id="infoQuaderC">$$c$$</span>
             </div>
             <div class="input-box">
                 <div>

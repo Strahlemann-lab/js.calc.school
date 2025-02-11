@@ -87,7 +87,6 @@ main{
 .formel-box{
     display: flex;
     flex-direction: column;
-    align-items: end;
     justify-content: center;
     gap: 0.5em;
 
@@ -95,7 +94,8 @@ main{
         display: inline-flex;
         align-items: center;
         gap: 1em;
-        margin-right: 20%;
+        margin-right: 15%;
+        margin-left: auto;
         
         p{
             font-weight: 700;
@@ -108,13 +108,10 @@ main{
     margin-right: 1em;
     margin-top: 1em;
     overflow: hidden;
-
-   /* *{
-        position: absolute;
-    }*/
     .text{
         color: var(--color-link);
-        font-weight: 600;
+        font-weight: 200;
+        position: absolute;
     }
 }
 
