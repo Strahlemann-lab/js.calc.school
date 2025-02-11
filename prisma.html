@@ -7,6 +7,10 @@
     <script src="main.js" defer></script>
     <link rel="stylesheet" href="style.css">
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/renderers/CSS2DRenderer.js"></script>
+    <script defer src="renderer.js"></script>
 </head>
 <body id="body" data-site="prisma">
     <main>
@@ -14,30 +18,35 @@
             <div class="formel-box">
                 <div>
                     <p>Volumen</p>
-                    <p>$$\frac{a^{2}}{4}h \sqrt{3}$$</p>
+                    <p>$$\frac{a^{2}}{4}\cdot h\cdot\sqrt{3}$$</p>
                 </div>
                 <div>
                     <p>Gesamtoberfläche</p>
-                    <p>$$\frac{a}{2}\left(a\sqrt{3}+6h\right)$$</p>
+                    <p>$$\frac{a}{2}\cdot\left(a\cdot\sqrt{3}+6\cdot h\right)$$</p>
                 </div>
                 <div>
                     <p>Mantelfläche</p>
-                    <p>$$3\times a\times h$$</p>
+                    <p>$$3\cdot a\cdot h$$</p>
                 </div>
                 <div>
                     <p>Grundfläche</p>
-                    <p>$$\frac{a^{2}}{4}\sqrt{3}$$</p>
+                    <p>$$\frac{a^{2}}{4}\cdot\sqrt{3}$$</p>
                 </div>
             </div>
-            <div class="skizze-box">2</div>
+            <div class="skizze-box" id="renderElement">
+                <span class="text" id="infoPrismaA1">$$a$$</span>
+                <span class="text" id="infoPrismaA2">$$a$$</span>
+                <span class="text" id="infoPrismaA3">$$a$$</span>
+                <span class="text" id="infoPrismaH">$$h$$</span>
+            </div>
             <div class="input-box">
                 <div>
                     <label for="input_a">a</label>
-                    <input type="number" id="input_a" oninput="prisma.result()" placeholder="0">
+                    <input type="number" id="input_a" oninput="prisma.result(); upPrisma();" placeholder="0" value="10">
                 </div>
                 <div>
                     <label for="input_h">h</label>
-                    <input type="number" id="input_h" oninput="prisma.result()" placeholder="0">
+                    <input type="number" id="input_h" oninput="prisma.result(); upPrisma();" placeholder="0" value="10">
                 </div>
                 <div>
                     <label for="inputPrecision">Kommastellen</label>

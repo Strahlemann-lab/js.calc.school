@@ -13,14 +13,17 @@ switch(document.body.getAttribute("data-site")){
 
     case "zylinder":
         var zylinder = initZylinder();
+        zylinder.result();
         break;
 
     case "prisma":
         var prisma = initPrisma();
+        prisma.result();
         break;
 
     case "pyramide":
         var pyramide = initPyramide();
+        pyramide.result();
         break;
     default:
         break;

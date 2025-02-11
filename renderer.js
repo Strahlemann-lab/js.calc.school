@@ -7,8 +7,9 @@ const scene = new THREE.Scene();
 const camera = new THREE.OrthographicCamera( renderElement.offsetWidth / -2, renderElement.offsetWidth / 2, renderElement.offsetHeight / 2, renderElement.offsetHeight / -2, 1, 1000 );
 const controls = new THREE.OrbitControls(camera, renderer.domElement);
 const material = new THREE.MeshBasicMaterial( { color: 0xd8d8d8, transparent: true, opacity: 0.15} ); // material is the texture with which the renderer renders a geometryObject
+const ringMaterial = new THREE.MeshBasicMaterial( { color: 0xd8d8d8, side: THREE.DoubleSide} );
 const lineMaterial = new THREE.LineBasicMaterial({ color: 0xd8d8d8, linewidth: 5});
-const lineMaterialBlue = new THREE.LineBasicMaterial({ color: 0x8fb6ff, linewidth: 5});
+const lineMaterialBlue = new THREE.LineBasicMaterial({ color: 0x8fb6ff, linewidth: 5 });
 
 // set up renderer
 renderer.setSize( renderElement.offsetWidth, renderElement.offsetHeight ); // set size of renderer to size of renderElement
@@ -42,7 +43,11 @@ function animate() {
 renderer.setAnimationLoop(animate); // set render loop for renderer 
 
 // set up camera
-camera.position.set(-3, -2, 10);
+if(document.body.getAttribute("data-site") == "zylinder"){
+    camera.position.set(-3, 1.5, 2);
+}else{
+    camera.position.set(-3, -2, 10);
+}
 camera.lookAt(0, 0, 0);
 function updateCameraDistance(targetObject, Distance) { // calcs the distance to geometryObject and sets the distance to the camera according to Distance
     const boundingBox = new THREE.Box3().setFromObject(targetObject);
@@ -94,8 +99,8 @@ switch(document.body.getAttribute("data-site")){
     case "kugel":
         geometry = new THREE.SphereGeometry( kugel.r.value, 32, 32 );
         geometryObject = new THREE.Mesh( geometry, material );
-        const ring = new THREE.RingGeometry(kugel.r.value - 0.04, kugel.r.value, 32);
-        var ringObject = new THREE.Mesh( ring, lineMaterial );
+        const ring = new THREE.RingGeometry(kugel.r.value - kugel.r.value / 100, kugel.r.value, 32);
+        var ringObject = new THREE.Mesh( ring, ringMaterial );
         const lineD = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(kugel.r.value, 0, 0), new THREE.Vector3(kugel.r.value * -1, 0, 0)]);
         var lineD_Object = new THREE.Line(lineD, lineMaterial);
         const lineR = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 0,kugel.r.value * -1)]);
@@ -114,9 +119,57 @@ switch(document.body.getAttribute("data-site")){
         break;
 
     case "zylinder":
+        geometry = new THREE.CylinderGeometry(zylinder.r.value, zylinder.r.value, zylinder.h.value, 32);
+        geometryObject = new THREE.Mesh( geometry, material );
+        const ringZ1 = new THREE.RingGeometry(zylinder.r.value - zylinder.r.value / 100, zylinder.r.value, 32);
+        const ringZ2 = new THREE.RingGeometry(zylinder.r.value - zylinder.r.value / 100, zylinder.r.value, 32);
+        var ringObject1 = new THREE.Mesh( ringZ1, ringMaterial );
+        var ringObject2 = new THREE.Mesh( ringZ2, ringMaterial );
+        ringObject1.position.set(0, zylinder.h.value / 2 ,0);
+        ringObject2.position.set(0, zylinder.h.value / 2 * -1 ,0);
+        ringObject1.rotation.x = Math.PI / 2;
+        ringObject2.rotation.x = Math.PI / 2;
+        const lineD_Z = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(zylinder.r.value * -1, zylinder.h.value / 2 * -1 , 0), new THREE.Vector3(zylinder.r.value, zylinder.h.value / 2 * -1 , 0)]);
+        var lineD_Object = new THREE.Line(lineD_Z, lineMaterial);
+        const lineR_Z = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0, zylinder.h.value / 2 * -1 , 0), new THREE.Vector3(0, zylinder.h.value / 2 * -1 , zylinder.r.value)]);
+        var lineR_Object = new THREE.Line(lineR_Z, lineMaterial);
+        const lineH_Z = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0, zylinder.h.value / 2 * -1 , zylinder.r.value), new THREE.Vector3(0, zylinder.h.value / 2, zylinder.r.value)]);
+        var lineH_Object = new THREE.Line(lineH_Z, lineMaterial);
+        const infoZylinderR = document.getElementById('infoZylinderR');
+        const infoZylinderD = document.getElementById('infoZylinderD');
+        const infoZylinderH = document.getElementById('infoZylinderH');
+        const infoZylinderX = document.getElementById('infoZylinderX');
+        var infoR_Object = new THREE.CSS2DObject(infoZylinderR);
+        var infoD_Object = new THREE.CSS2DObject(infoZylinderD);
+        var infoH_Object = new THREE.CSS2DObject(infoZylinderH);
+        var infoX_Object = new THREE.CSS2DObject(infoZylinderX);
+        infoR_Object.position.set(0, zylinder.h.value / 2 * -1, zylinder.r.value / 2);
+        infoD_Object.position.set(zylinder.d.value / 2, zylinder.h.value / 2 * -1, 0);
+        infoH_Object.position.set(0, 0, zylinder.r.value);
+        infoX_Object.position.set(0, zylinder.h.value / 2 * -1, 0);
+        geometryObject.add(lineD_Object, lineR_Object, lineH_Object, infoH_Object, infoD_Object, infoR_Object, infoX_Object);
+        scene.add(geometryObject, ringObject1, ringObject2);
         break;
 
     case "prisma":
+        geometry = new THREE.CylinderGeometry( prisma.a.value / (2 * Math.tan(Math.PI / 3)),prisma.a.value / (2 * Math.tan(Math.PI / 3)), prisma.h.value, 3, 1 );
+        geometryObject = new THREE.Mesh( geometry, material );
+        edgeLines = new THREE.EdgesGeometry(geometryObject.geometry);
+        edgeLinesObject = new THREE.LineSegments(edgeLines, lineMaterial);
+        const infoPrismaA1 = document.getElementById('infoPrismaA1');
+        const infoPrismaA2 = document.getElementById('infoPrismaA2');
+        const infoPrismaA3 = document.getElementById('infoPrismaA3');
+        const infoPrismaH = document.getElementById('infoPrismaH');
+        var infoA1_Object = new THREE.CSS2DObject(infoPrismaA1);
+        var infoA2_Object = new THREE.CSS2DObject(infoPrismaA2);
+        var infoA3_Object = new THREE.CSS2DObject(infoPrismaA3);
+        var infoH_Object = new THREE.CSS2DObject(infoPrismaH);
+        infoA1_Object.position.set(0,prisma.h.value / 2 * -1, 0);
+        infoA2_Object.position.set(0,prisma.h.value / 2 * -1, 0);
+        infoA3_Object.position.set(0,prisma.h.value / 2 * -1, 0);
+        infoH_Object.position.set(0,0,prisma.a.value / (2 * Math.tan(Math.PI / 3)));
+        geometryObject.add(infoA1_Object, infoA2_Object, infoA3_Object, infoH_Object);
+        scene.add(geometryObject, edgeLinesObject);
         break;
 
     case "pyramide":
@@ -146,8 +199,8 @@ function upKugel() {
     ringObject.geometry.dispose();
     geometry = new THREE.SphereGeometry( kugel.r.value, 32, 32 );
     geometryObject = new THREE.Mesh( geometry, material );
-    const ring = new THREE.RingGeometry(kugel.r.value - 0.04, kugel.r.value, 32);
-    ringObject = new THREE.Mesh( ring, lineMaterial );
+    const ring = new THREE.RingGeometry(kugel.r.value - kugel.r.value / 100, kugel.r.value, 32);
+    ringObject = new THREE.Mesh( ring, ringMaterial );
     const lineD = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(kugel.r.value, 0, 0), new THREE.Vector3(kugel.r.value * -1, 0, 0)]);
     lineD_Object = new THREE.Line(lineD, lineMaterial);
     const lineR = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 0,kugel.r.value * -1)]);
@@ -157,5 +210,64 @@ function upKugel() {
     infoX_Object.position.set(0, 0, 0);
     geometryObject.add(lineD_Object, lineR_Object, infoX_Object, infoD_Object, infoR_Object);
     scene.add( geometryObject, ringObject);
+}
+function upZylinder() {
+    scene.remove(geometryObject, ringObject1, ringObject2);
+    geometryObject.geometry.dispose();
+    ringObject1.geometry.dispose();
+    ringObject2.geometry.dispose();
+    geometry = new THREE.CylinderGeometry(zylinder.r.value, zylinder.r.value, zylinder.h.value, 32);
+    geometryObject = new THREE.Mesh( geometry, material );
+    const ringZ1 = new THREE.RingGeometry(zylinder.r.value - zylinder.r.value / 100, zylinder.r.value, 32);
+    const ringZ2 = new THREE.RingGeometry(zylinder.r.value - zylinder.r.value / 100, zylinder.r.value, 32);
+    ringObject1 = new THREE.Mesh( ringZ1, ringMaterial );
+    ringObject2 = new THREE.Mesh( ringZ2, ringMaterial );
+    ringObject1.position.set(0, zylinder.h.value / 2 ,0);
+    ringObject2.position.set(0, zylinder.h.value / 2 * -1 ,0);
+    ringObject1.rotation.x = Math.PI / 2;
+    ringObject2.rotation.x = Math.PI / 2;
+    const lineD_Z = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(zylinder.r.value * -1, zylinder.h.value / 2 * -1 , 0), new THREE.Vector3(zylinder.r.value, zylinder.h.value / 2 * -1 , 0)]);
+    lineD_Object = new THREE.Line(lineD_Z, lineMaterial);
+    const lineR_Z = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0, zylinder.h.value / 2 * -1 , 0), new THREE.Vector3(0, zylinder.h.value / 2 * -1 , zylinder.r.value)]);
+    lineR_Object = new THREE.Line(lineR_Z, lineMaterial);
+    const lineH_Z = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0, zylinder.h.value / 2 * -1 , zylinder.r.value), new THREE.Vector3(0, zylinder.h.value / 2, zylinder.r.value)]);
+    lineH_Object = new THREE.Line(lineH_Z, lineMaterial);
+    const infoZylinderR = document.getElementById('infoZylinderR');
+    const infoZylinderD = document.getElementById('infoZylinderD');
+    const infoZylinderH = document.getElementById('infoZylinderH');
+    const infoZylinderX = document.getElementById('infoZylinderX');
+    infoR_Object = new THREE.CSS2DObject(infoZylinderR);
+    infoD_Object = new THREE.CSS2DObject(infoZylinderD);
+    infoH_Object = new THREE.CSS2DObject(infoZylinderH);
+    infoX_Object = new THREE.CSS2DObject(infoZylinderX);
+    infoR_Object.position.set(0, zylinder.h.value / 2 * -1, zylinder.r.value / 2);
+    infoD_Object.position.set(zylinder.d.value / 2, zylinder.h.value / 2 * -1, 0);
+    infoH_Object.position.set(0, 0, zylinder.r.value);
+    infoX_Object.position.set(0, zylinder.h.value / 2 * -1, 0);
+    geometryObject.add(lineD_Object, lineR_Object, lineH_Object, infoH_Object, infoD_Object, infoR_Object, infoX_Object);
+    scene.add(geometryObject, ringObject1, ringObject2);
+}
+function upPrisma() {
+    scene.remove(geometryObject, edgeLinesObject);
+    geometryObject.geometry.dispose();
+    edgeLinesObject.geometry.dispose();
+    geometry = new THREE.CylinderGeometry( prisma.a.value / (2 * Math.tan(Math.PI / 3)),prisma.a.value / (2 * Math.tan(Math.PI / 3)), prisma.h.value, 3, 1 );
+    geometryObject = new THREE.Mesh( geometry, material );
+    edgeLines = new THREE.EdgesGeometry(geometryObject.geometry);
+    edgeLinesObject = new THREE.LineSegments(edgeLines, lineMaterial);
+    const infoPrismaA1 = document.getElementById('infoPrismaA1');
+    const infoPrismaA2 = document.getElementById('infoPrismaA2');
+    const infoPrismaA3 = document.getElementById('infoPrismaA3');
+    const infoPrismaH = document.getElementById('infoPrismaH');
+    var infoA1_Object = new THREE.CSS2DObject(infoPrismaA1);
+    var infoA2_Object = new THREE.CSS2DObject(infoPrismaA2);
+    var infoA3_Object = new THREE.CSS2DObject(infoPrismaA3);
+    var infoH_Object = new THREE.CSS2DObject(infoPrismaH);
+    infoA1_Object.position.set(0,prisma.h.value / 2 * -1, 0);
+    infoA2_Object.position.set(0,prisma.h.value / 2 * -1, 0);
+    infoA3_Object.position.set(0,prisma.h.value / 2 * -1, 0);
+    infoH_Object.position.set(0,0,prisma.a.value / (2 * Math.tan(Math.PI / 3)));
+    geometryObject.add(infoA1_Object, infoA2_Object, infoA3_Object, infoH_Object);
+    scene.add(geometryObject, edgeLinesObject);
 }
 
