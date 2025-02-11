@@ -70,9 +70,9 @@ switch(document.body.getAttribute("data-site")){
         var infoA_Object = new THREE.CSS2DObject(infoQuaderA);
         var infoB_Object = new THREE.CSS2DObject(infoQuaderB);
         var infoC_Object = new THREE.CSS2DObject(infoQuaderC);
-        infoA_Object.position.set(0, -5, -11);
-        infoB_Object.position.set(16, -5, 0);
-        infoC_Object.position.set(16, 0, 11);
+        infoA_Object.position.set(0, -5, -10);
+        infoB_Object.position.set(15, -5, 0);
+        infoC_Object.position.set(15, 0, 10);
         geometryObject.add(infoA_Object, infoB_Object, infoC_Object);
         break;
 
@@ -102,9 +102,9 @@ function upQuader() {
     edgeLinesObject.geometry.dispose();
     const edgeLines = new THREE.EdgesGeometry(geometryObject.geometry);
     edgeLinesObject= new THREE.LineSegments(edgeLines, lineMaterial);
-    infoA_Object.position.set(0, quader.c.value /2 * -1, quader.b.value / 2 * -1 - 1);
-    infoB_Object.position.set(quader.a.value / 2 + 1, quader.c.value /2 * -1, 0);
-    infoC_Object.position.set(quader.a.value / 2 + 1, 0, quader.b.value / 2 + 1);
+    infoA_Object.position.set(0, quader.c.value /2 * -1, quader.b.value / 2 * -1 );
+    infoB_Object.position.set(quader.a.value / 2 , quader.c.value /2 * -1, 0);
+    infoC_Object.position.set(quader.a.value / 2 , 0, quader.b.value / 2 );
     geometryObject.add(infoA_Object, infoB_Object, infoC_Object);
     scene.add(geometryObject, edgeLinesObject);
 }

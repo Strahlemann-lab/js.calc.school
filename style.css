@@ -112,8 +112,8 @@ main{
    /* *{
         position: absolute;
     }*/
-    text{
-        color: var(--color);
+    .text{
+        color: var(--color-link);
         font-weight: 600;
     }
 }
