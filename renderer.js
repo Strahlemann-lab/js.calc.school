@@ -144,7 +144,7 @@ switch(document.body.getAttribute("data-site")){
         var infoH_Object = new THREE.CSS2DObject(infoZylinderH);
         var infoX_Object = new THREE.CSS2DObject(infoZylinderX);
         infoR_Object.position.set(0, zylinder.h.value / 2 * -1, zylinder.r.value / 2);
-        infoD_Object.position.set(zylinder.d.value / 2, zylinder.h.value / 2 * -1, 0);
+        infoD_Object.position.set(zylinder.r.value / 2, zylinder.h.value / 2 * -1, 0);
         infoH_Object.position.set(0, 0, zylinder.r.value);
         infoX_Object.position.set(0, zylinder.h.value / 2 * -1, 0);
         geometryObject.add(lineD_Object, lineR_Object, lineH_Object, infoH_Object, infoD_Object, infoR_Object, infoX_Object);
