@@ -118,7 +118,7 @@ function initZylinder(){
             return Math.PI * this.r.value ** 2 *this.h.value
         },
         a0: function () {
-            return 2 * Math.PI * this.r.value * (this.r.value + this.h.value)
+            return this.aM() + (this.aG() * 2)
         },
         aM: function () {
             return 2 * Math.PI * this.r.value * this.h.value
@@ -205,7 +205,7 @@ function initPyramide(){
             return (1 / 3) * this.a.value ** 2 * this.h.value
         },
         a0: function () {
-            return this.a.value * (this.a.value + 2 * this.hs())
+            return this.aG() + this.aM()
         },
         aM: function () {
             return 2 * this.a.value * this.hs()
