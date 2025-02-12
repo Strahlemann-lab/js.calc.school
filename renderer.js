@@ -164,9 +164,9 @@ switch(document.body.getAttribute("data-site")){
         var infoA2_Object = new THREE.CSS2DObject(infoPrismaA2);
         var infoA3_Object = new THREE.CSS2DObject(infoPrismaA3);
         var infoH_Object = new THREE.CSS2DObject(infoPrismaH);
-        infoA1_Object.position.set(0,prisma.h.value / 2 * -1, 0);
-        infoA2_Object.position.set(0,prisma.h.value / 2 * -1, 0);
-        infoA3_Object.position.set(0,prisma.h.value / 2 * -1, 0);
+        infoA1_Object.position.set(0 ,prisma.h.value / 2 * -1, prisma.a.value / (2 * Math.tan(Math.PI / 3)) / 2 * -1);
+        infoA2_Object.position.set(prisma.a.value / (2 * Math.tan(Math.PI / 3)) / 2,prisma.h.value / 2 * -1, prisma.a.value / (2 * Math.tan(Math.PI / 3)) / 4);
+        infoA3_Object.position.set(prisma.a.value / (2 * Math.tan(Math.PI / 3)) / 2 * -1,prisma.h.value / 2 * -1, prisma.a.value / (2 * Math.tan(Math.PI / 3)) / 4);
         infoH_Object.position.set(0,0,prisma.a.value / (2 * Math.tan(Math.PI / 3)));
         geometryObject.add(infoA1_Object, infoA2_Object, infoA3_Object, infoH_Object);
         scene.add(geometryObject, edgeLinesObject);
@@ -285,9 +285,10 @@ function upPrisma() {
     var infoA2_Object = new THREE.CSS2DObject(infoPrismaA2);
     var infoA3_Object = new THREE.CSS2DObject(infoPrismaA3);
     var infoH_Object = new THREE.CSS2DObject(infoPrismaH);
-    infoA1_Object.position.set(0,prisma.h.value / 2 * -1, 0);
-    infoA2_Object.position.set(0,prisma.h.value / 2 * -1, 0);
-    infoA3_Object.position.set(0,prisma.h.value / 2 * -1, 0);
+    infoA1_Object.position.set(0 ,prisma.h.value / 2 * -1, prisma.a.value / (2 * Math.tan(Math.PI / 3)) / 2 * -1);
+    infoA2_Object.position.set(prisma.a.value / (2 * Math.tan(Math.PI / 3)) / 2,prisma.h.value / 2 * -1, prisma.a.value / (2 * Math.tan(Math.PI / 3)) / 4);
+    infoA3_Object.position.set(prisma.a.value / (2 * Math.tan(Math.PI / 3)) / 2 * -1,prisma.h.value / 2 * -1, prisma.a.value / (2 * Math.tan(Math.PI / 3)) / 4);
+    infoH_Object.position.set(0,0,prisma.a.value / (2 * Math.tan(Math.PI / 3)));
     infoH_Object.position.set(0,0,prisma.a.value / (2 * Math.tan(Math.PI / 3)));
     geometryObject.add(infoA1_Object, infoA2_Object, infoA3_Object, infoH_Object);
     scene.add(geometryObject, edgeLinesObject);
